@@ -13,7 +13,7 @@ public class CredentialStorageServiceImpl implements CredentialStorageService {
     private static final Map<String, String> memoryStorage = new HashMap<>();
 
     static {
-        memoryStorage.put("fkz", "123456");
+        memoryStorage.put("aaa", "123456");
     }
 
     @Override
