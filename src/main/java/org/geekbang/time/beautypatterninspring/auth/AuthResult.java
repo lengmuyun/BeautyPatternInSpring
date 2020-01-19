@@ -1,19 +1,19 @@
 package org.geekbang.time.beautypatterninspring.auth;
 
-public class AuthResult<T> {
+public class AuthResult {
 
-    private T data;
+    private boolean success;
     private String message;
     private int code;
 
-    public AuthResult(T data, AuthMessage authMessage) {
-        this.data = data;
+    public AuthResult(boolean success, AuthMessage authMessage) {
+        this.success = success;
         this.code = authMessage.getCode();
         this.message = authMessage.getMessage();
     }
 
-    public T getData() {
-        return data;
+    public boolean isSuccess() {
+        return success;
     }
 
     public String getMessage() {
@@ -26,7 +26,7 @@ public class AuthResult<T> {
 
     public enum AuthMessage {
 
-        SUCCESS(1, "Success."),
+        SUCCESS(0, "Success."),
         TOKEN_IS_EXPIRED(1, "Token is expired."),
         TOKEN_VERFICATION_FAILED(2, "Token verfication failed.");
 
