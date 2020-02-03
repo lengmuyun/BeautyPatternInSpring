@@ -17,19 +17,19 @@ public class ApiAuthenticatorServiceImpl implements ApiAuthenticatorService {
     private CredentialStorageService credentialStorageService;
 
     @Override
-    public AuthResult<Boolean> auth(String url) {
+    public AuthResult auth(String url) {
         ApiRequest apiRequest = ApiRequest.createFromFullUrl(url);
         return auth(apiRequest);
     }
 
     @Override
-    public AuthResult<Boolean> auth(ApiRequest apiRequest) {
+    public AuthResult auth(ApiRequest apiRequest) {
         String appId = apiRequest.getAppId();
         long timestamp = apiRequest.getTimestamp();
 
         AuthToken clientAuthToken = new AuthToken(apiRequest.getToken(), timestamp);
         if (clientAuthToken.isExpired()) {
-            return new AuthResult<>(Boolean.FALSE, AuthResult.AuthMessage.TOKEN_IS_EXPIRED);
+            return new AuthResult(false, AuthResult.AuthMessage.TOKEN_IS_EXPIRED);
         }
 
         String password = credentialStorageService.getPasswordByAppId(appId);
@@ -38,9 +38,9 @@ public class ApiAuthenticatorServiceImpl implements ApiAuthenticatorService {
         params.put("password", password);
         AuthToken serverAutoToken = AuthToken.create(apiRequest.getBaseUrl(), timestamp, params);
         if (!serverAutoToken.match(clientAuthToken)) {
-            return new AuthResult<>(Boolean.FALSE, AuthResult.AuthMessage.TOKEN_VERFICATION_FAILED);
+            return new AuthResult(false, AuthResult.AuthMessage.TOKEN_VERFICATION_FAILED);
         }
-        return new AuthResult<>(Boolean.TRUE, AuthResult.AuthMessage.SUCCESS);
+        return new AuthResult(true, AuthResult.AuthMessage.SUCCESS);
     }
 
 }

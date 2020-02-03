@@ -2,6 +2,10 @@ package org.geekbang.time.beautypatterninspring.auth;
 
 import org.geekbang.time.beautypatterninspring.util.MD5Utils;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 
 public class AuthToken {
@@ -32,9 +36,15 @@ public class AuthToken {
     public static AuthToken create(String baseUrl, long createTime, Map<String, String> params) {
         StringBuilder sb = new StringBuilder(baseUrl);
         sb.append('?').append("createTime=" + createTime);
-        params.forEach((k, v) -> sb.append("&" + k + "=" + v));
+        appendParamsByKeys(params, sb);
         String fullUrl = sb.toString();
         return new AuthToken(MD5Utils.getMD5(fullUrl), createTime);
+    }
+
+    private static void appendParamsByKeys(Map<String, String> params, StringBuilder sb) {
+        List<String> keys = new ArrayList<>(params.keySet());
+        keys.sort(String::compareTo);
+        keys.forEach(k -> sb.append("&" + k + "=" + params.get(k)));
     }
 
     public String getToken() {
