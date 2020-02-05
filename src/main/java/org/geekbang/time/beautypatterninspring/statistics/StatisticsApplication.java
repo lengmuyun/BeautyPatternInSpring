@@ -4,11 +4,12 @@ public class StatisticsApplication {
 
     public static void main(String[] args) {
         RedisMetricsStorage storage = new RedisMetricsStorage();
-        final ConsoleReporter consoleReporter = new ConsoleReporter(storage);
+        final ConsoleReporter consoleReporter = new ConsoleReporter(storage, new Aggregator(), new ConsoleViewer());
         consoleReporter.startRepeatedReport(60, 60);
 
-        EmailReporter emailReporter = new EmailReporter(storage);
-        emailReporter.addToAddress("wangzheng@xzg.com");
+        final EmailViewer statViewer = new EmailViewer();
+        EmailReporter emailReporter = new EmailReporter(storage, new Aggregator(), statViewer);
+        statViewer.addToAddress("wangzheng@xzg.com");
         emailReporter.startDailyReport();
 
         MetricsCollector collector = new MetricsCollector(storage);

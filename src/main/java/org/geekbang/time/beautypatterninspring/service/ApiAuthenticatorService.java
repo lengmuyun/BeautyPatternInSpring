@@ -5,8 +5,8 @@ import org.geekbang.time.beautypatterninspring.auth.AuthResult;
 
 public interface ApiAuthenticatorService {
 
-    AuthResult<Boolean> auth(String url);
+    AuthResult auth(String url);
 
-    AuthResult<Boolean> auth(ApiRequest apiRequest);
+    AuthResult auth(ApiRequest apiRequest);
 
 }

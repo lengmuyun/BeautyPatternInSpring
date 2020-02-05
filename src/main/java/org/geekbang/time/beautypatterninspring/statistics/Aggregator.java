@@ -1,56 +1,55 @@
 package org.geekbang.time.beautypatterninspring.statistics;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Aggregator {
 
-    public static RequestStat aggregate(List<RequestInfo> requestInfos, long durationInMillis) {
-        double maxRespTime = Double.MIN_VALUE;
-        double minRespTime = Double.MAX_VALUE;
-        double avgRespTime = -1;
-        double p999RespTime = -1;
-        double p99RespTime = -1;
-        double sumRespTime = 0;
-        long count = 0;
-        for (RequestInfo requestInfo : requestInfos) {
-            count++;
-            double respTime = requestInfo.getResponseTime();
-            if (maxRespTime < respTime) {
-                maxRespTime = respTime;
-            }
-            if (minRespTime > respTime) {
-                minRespTime = respTime;
-            }
-            sumRespTime += respTime;
+    public Map<String, RequestStat> aggregate(Map<String, List<RequestInfo>> requestInfos, long durationInMillis) {
+        Map<String, RequestStat> stats = new HashMap<>();
+        for (Map.Entry<String, List<RequestInfo>> entry : requestInfos.entrySet()) {
+            String apiName = entry.getKey();
+            List<RequestInfo> requestInfosPerApi = entry.getValue();
+            // 第2个代码逻辑：根据原始数据，计算得到统计数据；
+            RequestStat requestStat = doAggregate(requestInfosPerApi, durationInMillis);
+            stats.put(apiName, requestStat);
         }
-        if (count != 0) {
-            avgRespTime = sumRespTime / count;
-        }
-        long tps = (count / durationInMillis * 1000);
-        requestInfos.sort((o1, o2) -> {
-            double diff = o1.getResponseTime() - o2.getResponseTime();
-            if (diff < 0) {
-                return -1;
-            } else if (diff > 0) {
-                return 1;
-            }
-            return 0;
-        });
-        int idx999 = (int) (count * 0.999);
-        int idx99 = (int) (count * 0.99);
-        if (count != 0) {
-            p999RespTime = requestInfos.get(idx999).getResponseTime();
-            p99RespTime = requestInfos.get(idx99).getResponseTime();
-        }
+        return stats;
+    }
+
+    public RequestStat doAggregate(List<RequestInfo> requestInfos, long durationInMillis) {
+        List<Double> responseTimeList = requestInfos.stream()
+                .map(RequestInfo::getResponseTime)
+                .sorted()
+                .collect(Collectors.toList());
+
         RequestStat requestStat = new RequestStat();
-        requestStat.setMaxResponseTime(maxRespTime);
-        requestStat.setMinResponseTime(minRespTime);
-        requestStat.setAvgResponseTime(avgRespTime);
-        requestStat.setP999ResponseTime(p999RespTime);
-        requestStat.setP99ResponseTime(p99RespTime);
-        requestStat.setCount(count);
-        requestStat.setTps(tps);
+        requestStat.setMaxResponseTime(responseTimeList.get(responseTimeList.size() - 1));
+        requestStat.setMinResponseTime(responseTimeList.get(0));
+        requestStat.setAvgResponseTime(avg(responseTimeList));
+        requestStat.setP999ResponseTime(percentile999(responseTimeList));
+        requestStat.setP99ResponseTime(percentile99(responseTimeList));
+        requestStat.setCount(responseTimeList.size());
+        requestStat.setTps(tps(responseTimeList.size(), durationInMillis / 1000));
         return requestStat;
+    }
+
+    private long tps(int size, long l) {
+        return 0;
+    }
+
+    private double percentile99(List<Double> responseTimeList) {
+        return 0;
+    }
+
+    private double percentile999(List<Double> responseTimeList) {
+        return 0;
+    }
+
+    private double avg(List<Double> responseTimeList) {
+        return 0;
     }
 
 }
