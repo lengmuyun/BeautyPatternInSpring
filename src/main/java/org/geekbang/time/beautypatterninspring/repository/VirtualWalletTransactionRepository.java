@@ -33,4 +33,5 @@ public class VirtualWalletTransactionRepository {
                 .eq("from_wallet_id", walletId).or().eq("to_wallet_id", walletId);
         return virtualWalletTransactionMapper.selectList(queryWrapper);
     }
+
 }
