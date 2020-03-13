@@ -3,8 +3,6 @@ package org.geekbang.time.beautypatterninspring.auth;
 import org.geekbang.time.beautypatterninspring.util.MD5Utils;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 

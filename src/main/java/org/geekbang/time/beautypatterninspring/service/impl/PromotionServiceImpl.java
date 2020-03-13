@@ -8,7 +8,7 @@ public class PromotionServiceImpl implements PromotionService {
 
     @Override
     public void issueNewUserExperienceCash(long userId) {
-
+        System.out.println("PromotionServiceImpl method issueNewUserExperienceCash invoked, param");
     }
 
 }
