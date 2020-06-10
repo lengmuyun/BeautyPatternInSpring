@@ -1,4 +1,4 @@
-package org.geekbang.time.beautypatterninspring.ratelimiter;
+package org.geekbang.time.beautypatterninspring.ratelimiter.alg;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Stopwatch;

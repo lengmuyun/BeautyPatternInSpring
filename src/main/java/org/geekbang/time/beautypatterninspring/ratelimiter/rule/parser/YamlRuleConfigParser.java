@@ -1,4 +1,6 @@
-package org.geekbang.time.beautypatterninspring.ratelimiter;
+package org.geekbang.time.beautypatterninspring.ratelimiter.rule.parser;
+
+import org.geekbang.time.beautypatterninspring.ratelimiter.rule.RuleConfig;
 
 import java.io.InputStream;
 

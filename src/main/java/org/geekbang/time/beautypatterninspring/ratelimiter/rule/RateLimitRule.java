@@ -1,4 +1,4 @@
-package org.geekbang.time.beautypatterninspring.ratelimiter;
+package org.geekbang.time.beautypatterninspring.ratelimiter.rule;
 
 public interface RateLimitRule {
 

@@ -1,20 +1,20 @@
-package org.geekbang.time.beautypatterninspring.ratelimiter;
+package org.geekbang.time.beautypatterninspring.ratelimiter.rule;
 
-public class AppLimit {
+public class ApiLimit {
 
     private static final int DEFAULT_TIME_UNIT = 1;
     private String api;
     private int limit;
     private int unit = DEFAULT_TIME_UNIT;
 
-    public AppLimit() {
+    public ApiLimit() {
     }
 
-    public AppLimit(String api, int limit) {
+    public ApiLimit(String api, int limit) {
         this(api, limit, DEFAULT_TIME_UNIT);
     }
 
-    public AppLimit(String api, int limit, int unit) {
+    public ApiLimit(String api, int limit, int unit) {
         this.api = api;
         this.limit = limit;
         this.unit = unit;

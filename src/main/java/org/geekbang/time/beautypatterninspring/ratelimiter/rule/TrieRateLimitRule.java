@@ -1,4 +1,4 @@
-package org.geekbang.time.beautypatterninspring.ratelimiter;
+package org.geekbang.time.beautypatterninspring.ratelimiter.rule;
 
 public class TrieRateLimitRule implements RateLimitRule {
 
@@ -10,4 +10,5 @@ public class TrieRateLimitRule implements RateLimitRule {
     public ApiLimit getLimit(String appId, String url) {
         return null;
     }
+
 }

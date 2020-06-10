@@ -1,28 +1,28 @@
-package org.geekbang.time.beautypatterninspring.ratelimiter;
+package org.geekbang.time.beautypatterninspring.ratelimiter.rule;
 
 import java.util.List;
 
 public class RuleConfig {
 
-    private List<UniformRuleConfig> configs;
+    private List<AppRuleConfig> configs;
 
-    public List<UniformRuleConfig> getConfigs() {
+    public List<AppRuleConfig> getConfigs() {
         return configs;
     }
 
-    public void setConfigs(List<UniformRuleConfig> configs) {
+    public void setConfigs(List<AppRuleConfig> configs) {
         this.configs = configs;
     }
 
     public static class AppRuleConfig {
 
         private String appId;
-        private List<AppLimit> limits;
+        private List<ApiLimit> limits;
 
         public AppRuleConfig() {
         }
 
-        public AppRuleConfig(String appId, List<AppLimit> limits) {
+        public AppRuleConfig(String appId, List<ApiLimit> limits) {
             this.appId = appId;
             this.limits = limits;
         }
@@ -31,7 +31,7 @@ public class RuleConfig {
             return appId;
         }
 
-        public List<AppLimit> getLimits() {
+        public List<ApiLimit> getLimits() {
             return limits;
         }
     }
