@@ -1,0 +1,30 @@
+<configs>
+    <config>
+        <appId>app-1</appId>
+        <limits>
+            <alimit>
+                <api>/v1/user</api>
+                <limit>100</limit>
+                <unit>60</unit>
+            </alimit>
+            <alimit>
+                <api>/v1/order</api>
+                <limit>50</limit>
+            </alimit>
+        </limits>
+    </config>
+
+    <config>
+        <appId>app-2</appId>
+        <limits>
+            <alimit>
+                <api>/v1/user</api>
+                <limit>50</limit>
+            </alimit>
+            <alimit>
+                <api>/v1/order</api>
+                <limit>50</limit>
+            </alimit>
+        </limits>
+    </config>
+</configs>
